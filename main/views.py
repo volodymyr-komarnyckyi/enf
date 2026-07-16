@@ -16,7 +16,7 @@ class IndexView(TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = self.get_context_data(**kwargs)
         if request.headers.get('HX-Request'):
             return TemplateResponse(request, 'main/home_content.html', context)
         return TemplateResponse(request, self.template_name, context)
@@ -29,7 +29,7 @@ class CatalogView(TemplateView):
         'color': lambda queryset, value: queryset.filter(color__iexact=value),
         'min_price': lambda queryset, value: queryset.filter(price__gte=value),
         'max_price': lambda queryset, value: queryset.filter(price__lte=value),
-        'size': lambda queryset, value: queryset.filter(product_size__size__name=value),
+        'size': lambda queryset, value: queryset.filter(product_sizes__size__name=value),
     }
 
     def get_context_data(self, **kwargs):

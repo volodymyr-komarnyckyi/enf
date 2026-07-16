@@ -24,7 +24,7 @@ class Size(models.Model):
 
 class ProductSize(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE,
-                                related_name='product_size')
+                                related_name='product_sizes')
     size = models.ForeignKey('Size', on_delete=models.CASCADE)
     stock = models.PositiveIntegerField(default=0)
 
@@ -41,8 +41,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True)
     main_image = models.ImageField(upload_to='products/main/')
-    created_at = models.TimeField(auto_now_add=True)
-    updated_at = models.TimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
